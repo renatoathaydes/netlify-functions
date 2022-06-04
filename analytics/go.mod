@@ -1,4 +1,4 @@
-module renatoathaydes/renato-functions
+module renato/analytics
 
 go 1.18
 
