@@ -11,8 +11,24 @@
     <p>If it works, you will see a message show up below:</p>
     <div id="message"></div>
     <script async>
-        window.onload = function () {
-            fetch('/.netlify/functions/analytics').then(res => {
+        window.onload = () => {
+            var _try=(f)=>{try{return f()}catch(e){return ''}};
+            var data = {
+                'path': _try(() => window.location.pathname),
+                'pltfm': _try(() => navigator.platform),
+                'langs': _try(() => navigator.languages),
+                'ref': _try(() => document.referrer),
+                'ua': _try(() => navigator.userAgent),
+                'loc': _try(() => Intl.DateTimeFormat().resolvedOptions().timeZone)
+            };
+            console.log(JSON.stringify(data));
+            fetch('/.netlify/functions/analytics', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
                 if (res.status === 200) {
                     res.text().then(text => {
                         document.getElementById('message').textContent = text;
