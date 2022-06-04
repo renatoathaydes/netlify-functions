@@ -13,7 +13,7 @@ func (container testRequestContainer) GetRequest() *Request {
 func request(method, contentType string) RequestContainer {
 	return testRequestContainer{req: Request{
 		HTTPMethod: method,
-		Headers:    map[string]string{"Content-Type": contentType}},
+		Headers:    map[string]string{"content-type": contentType}},
 	}
 }
 
@@ -24,7 +24,7 @@ func TestHandler(t *testing.T) {
 		body                string
 	}{
 		{"GET", "application/json", 405, ""},
-		{"POST", "text/plain", 400, "Bad Request. Content-Type not in headers: 'map[Content-Type:text/plain]'"},
+		{"POST", "text/plain", 400, "Expected json data"},
 		{"POST", "application/json", 200, "Hi Renato"},
 	}
 	for _, c := range cases {
