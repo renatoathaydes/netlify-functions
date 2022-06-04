@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type RequestContainer interface {
 	GetRequest() *Request
 }
@@ -35,7 +37,7 @@ func main_handler(req RequestContainer) (Response, error) {
 	return Response{
 		StatusCode:      400,
 		Headers:         map[string]string{"Content-Type": "text/plain"},
-		Body:            "Bad Request. Content-Type not acceptable: " + content_type,
+		Body:            fmt.Sprintf("Bad Request. Content-Type not in headers: '%v'", request.Headers),
 		IsBase64Encoded: false,
 	}, nil
 }
