@@ -18,7 +18,8 @@ type Response struct {
 
 func main_handler(req RequestContainer) (Response, error) {
 	request := req.GetRequest()
-	if request.HTTPMethod == "POST" && request.Headers["Content-Type"] == "application/json" {
+	content_type := request.Headers["Content-Type"]
+	if request.HTTPMethod == "POST" && content_type == "application/json" {
 		return Response{
 			StatusCode:      200,
 			Headers:         map[string]string{"Content-Type": "text/plain"},
@@ -34,7 +35,7 @@ func main_handler(req RequestContainer) (Response, error) {
 	return Response{
 		StatusCode:      400,
 		Headers:         map[string]string{"Content-Type": "text/plain"},
-		Body:            "Bad Request",
+		Body:            "Bad Request. Content-Type not acceptable: " + content_type,
 		IsBase64Encoded: false,
 	}, nil
 }

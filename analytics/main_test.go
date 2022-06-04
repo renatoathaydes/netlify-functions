@@ -24,7 +24,7 @@ func TestHandler(t *testing.T) {
 		body                string
 	}{
 		{"GET", "application/json", 405, ""},
-		{"POST", "text/plain", 400, "Bad Request"},
+		{"POST", "text/plain", 400, "Bad Request. Content-Type not acceptable: text/plain"},
 		{"POST", "application/json", 200, "Hi Renato"},
 	}
 	for _, c := range cases {
