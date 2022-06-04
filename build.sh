@@ -9,6 +9,6 @@ go test .
 echo "Clean website/netlify dir"
 rm -rf website/netifly/
 echo "Copy go files to website/netlify dir"
-mkdir -p website/netifly/functions/analytics/
-cp *.go website/netifly/functions/analytics/
+mkdir -p website/netlify/functions/analytics/
+cp *.go website/netlify/functions/analytics/
 echo "Built successfully"
