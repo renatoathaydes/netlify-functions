@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Testing Netlify Functions</title>
+</head>
+
+<body>
+
+    <h1>Netlify Functions!</h1>
+    <p>If it works, you will see a message show up below:</p>
+    <div id="message"></div>
+    <script async>
+        window.onload = function () {
+            fetch('/.netlify/functions/analytics').then(res => {
+                if (res.status === 200) {
+                    res.text().then(text => {
+                        document.getElementById('message').textContent = text;
+                    });
+                } else {
+                    console.error('unexpected analytics status code', res.status);
+                    res.text().then(text => {
+                        document.getElementById('message').textContent =
+                            'Bad status code:' + res.status + ', error message: ' + text;
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
